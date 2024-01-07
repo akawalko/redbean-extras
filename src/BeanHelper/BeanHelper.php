@@ -9,7 +9,7 @@ use RedBeanPHP\OODBBean;
 
 class BeanHelper extends SimpleFacadeBeanHelper
 {
-    private array $redbeanTypeIndexedClassNames;
+    protected array $redbeanTypeIndexedClassNames;
 
     public function __construct(array $redbeanTypeIndexedClassNames = [])
     {
