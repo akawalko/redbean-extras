@@ -9,6 +9,8 @@ use Symfony\Component\Finder\Finder;
 
 class ModelClassFinder
 {
+    public static $baseModelClass = '\RedBeanPHP\SimpleModel';
+
     public function findInDirectory(string $directoryToSearchIn): array
     {
         $finder = new Finder();
@@ -17,7 +19,7 @@ class ModelClassFinder
         $indexedClassNames = [];
 
         /** @var ReflectionClass $class */
-        foreach ($iterator->type('\RedBeanPHP\TypedModel') as $class) {
+        foreach ($iterator->type(self::$baseModelClass) as $class) {
             $indexedClassNames[$this->convertToSnakeCase($class->getShortName())] = $class->getName();
         }
 
