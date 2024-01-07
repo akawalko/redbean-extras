@@ -24,13 +24,28 @@ class BeanHelperFactoryTest extends TestCase
                 'user_setting' => 'Akawalko\RedbeanExtras\Tests\ExampleModelClasses\src\Module\User\UserSetting',
             ]);
 
-        // Since I created a mock, the ModelClassFinder::findInDirectory method will not be called in the closure
+        // Since I created a cache mock, the ModelClassFinder::findInDirectory method will not be called in the closure
         $modelClassFinder = $this->createMock(ModelClassFinder::class);
         $modelClassFinder
             ->expects($this->never())
             ->method('findInDirectory');
 
         $factory = new BeanHelperFactory($modelClassFinder, $cache, 5);
+        $beanHelper = $factory->create(__DIR__ . '/../ExampleModelClasses/src/Module/User');
+
+        $this->assertInstanceOf(BeanHelper::class, $beanHelper);
+    }
+
+    /** @test */
+    public function when_the_factory_was_created_without_cache_it_will_call_model_class_finder_method(): void
+    {
+        $modelClassFinder = $this->createMock(ModelClassFinder::class);
+        $modelClassFinder
+            ->expects($this->once())
+            ->method('findInDirectory')
+            ->with(__DIR__ . '/../ExampleModelClasses/src/Module/User');
+
+        $factory = new BeanHelperFactory($modelClassFinder);
         $beanHelper = $factory->create(__DIR__ . '/../ExampleModelClasses/src/Module/User');
 
         $this->assertInstanceOf(BeanHelper::class, $beanHelper);
