@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Akawalko\RedbeanExtras\Tests;
+namespace Akawalko\RedbeanExtras\Tests\Finder;
 
 use Akawalko\RedbeanExtras\Finder\ModelClassFinder;
 use PHPUnit\Framework\TestCase;
